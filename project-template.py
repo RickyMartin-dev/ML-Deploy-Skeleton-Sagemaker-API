@@ -14,7 +14,12 @@ list_of_files = [
     "requirements.txt", # for package versions for API
     "Dockerfile", # API Docker File
     "tests/__init__.py", # creation of testing folder
-    "src/__init__.py", # Main folder for app code
+
+    "app/__init__.py", # Main folder for app code
+    "app/app.py", # Main folder for app code
+    "app/model_loader.py", # loads from /opt/ml/model
+    "app/logger.py", # JSON logger + CW embedded metrics
+    "app/schema.py", # same pydantic schema
 ]
 
 # Go through list and create folders/files
