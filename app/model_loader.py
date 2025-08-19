@@ -1,4 +1,5 @@
 import os, json, pickle
+import numpy
 
 MODEL_DIR = os.getenv("MODEL_DIR", "/opt/ml/model")
 

@@ -3,9 +3,12 @@ from fastapi.responses import JSONResponse, PlainTextResponse
 import os, time, pandas as pd, uuid, json, datetime
 import boto3
 
-from schema import BatchRequest
-from model_loader import load_artifacts
-from logger import json_log, put_latency_metric
+from app.schema import BatchRequest
+from app.model_loader import load_artifacts
+from app.logger import json_log, put_latency_metric
+
+from dotenv import load_dotenv
+load_dotenv()
 
 app = FastAPI()
 
@@ -48,11 +51,10 @@ def invocations(req: BatchRequest, request: Request):
         latency = (time.time() - t0) * 1000.0
         put_latency_metric(latency_ms=latency)
         json_log("inference_ok", n=len(result), latency_ms=latency)
-
         # Optional: store recent features for drift checks
         bucket = os.getenv("BUCKET")
         if bucket:
-            s3 = boto3.client("s3", region_name=os.getenv("AWS_REGION", "us-west-2"))
+            s3 = boto3.client("s3", region_name=os.getenv("AWS_REGION", "us-east-1"))
             key = f"drift/recent/{datetime.date.today().isoformat()}/{uuid.uuid4()}.json"
             s3.put_object(Bucket=bucket, Key=key, Body=df.to_json(orient="records").encode())
 
