@@ -12,7 +12,13 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 COPY app ./app
 
-# SageMaker requires the server on port 8080 with /ping and /invocations
-ENV PORT=8080
+RUN chmod +x app/serve.sh
 
-CMD ["gunicorn", "-k", "uvicorn.workers.UvicornWorker", "-w", "2", "-b", "0.0.0.0:8080", "app.app:app"]
+# Make sure Python can import "app.*"
+ENV PYTHONPATH=/opt/ml/code
+# SageMaker requires the server on port 8080 with /ping and /invocations
+# ENV PORT=8080
+
+# CMD ["gunicorn", "-k", "uvicorn.workers.UvicornWorker", "-w", "2", "-b", "0.0.0.0:8080", "app.app:app"]
+# IMPORTANT: SageMaker will pass "serve" — this wrapper handles it
+ENTRYPOINT ["/opt/ml/code/app/serve.sh"]

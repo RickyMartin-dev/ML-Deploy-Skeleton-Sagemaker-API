@@ -20,6 +20,10 @@ list_of_files = [
     "app/model_loader.py", # loads from /opt/ml/model
     "app/logger.py", # JSON logger + CW embedded metrics
     "app/schema.py", # same pydantic schema
+    "app/serve.sh", # bash command to serve application 
+
+    "scripts/__init__.py", # scripts folder for jobs that need to be completed
+    "scripts/create_model_and_endpoint.py", # python script to create model and endpoint
 ]
 
 # Go through list and create folders/files
