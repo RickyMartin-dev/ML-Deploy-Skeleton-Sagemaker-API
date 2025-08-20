@@ -24,6 +24,7 @@ list_of_files = [
 
     "scripts/__init__.py", # scripts folder for jobs that need to be completed
     "scripts/create_model_and_endpoint.py", # python script to create model and endpoint
+    "scripts/invoke_async.py", # python script to invoke model
 ]
 
 # Go through list and create folders/files

@@ -22,14 +22,7 @@ container_def = {
   "Image": IMAGE,
   "Mode": "SingleModel",
   "ModelDataUrl": model_data_url,
-  "Environment": {"PYTHONPATH": "/opt/ml/code"},
-  "ContainerEntrypoint": [
-      "gunicorn",
-      "-k","uvicorn.workers.UvicornWorker",
-      "-w","2",
-      "-b","0.0.0.0:8080",
-      "app.app:app"
-  ]
+  "Environment": {"PYTHONPATH": "/opt/ml/code"}
 }
 
 smr = sm.create_model(
